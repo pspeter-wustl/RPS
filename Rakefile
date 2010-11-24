@@ -17,3 +17,8 @@ namespace :db do
     db = SQLite3::Database.new('db/stats.sqlite3')
   end
 end
+
+desc "Run all the tests"
+task :test do
+  `rspec test/*.spec`
+end
