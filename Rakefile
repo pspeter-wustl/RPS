@@ -20,5 +20,5 @@ end
 
 desc "Run all the tests"
 task :test do
-  `rspec test/*.spec`
+  puts `rspec test/*.spec`
 end
