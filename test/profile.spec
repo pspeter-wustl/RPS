@@ -2,8 +2,6 @@ require 'app/models/profile'
 
 describe Profile do
   before(:all) do
-    puts "Database needs to be reset for all the tests to pass"
-    puts "Run rake db:reset to reset the database"
     @db = SQLite3::Database.new("db/data.sqlite3")
     @db.results_as_hash = true
     @db.type_translation = true
