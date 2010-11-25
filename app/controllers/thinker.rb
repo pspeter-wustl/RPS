@@ -11,4 +11,16 @@ class Thinker
     @max_search = max_search
     @max_history = max_history
   end
+  
+  attr_reader :user, :computer, :max_search, :max_history
+  
+  # Adds history
+  def add(user, computer)
+    @user << user
+    @computer << computer
+  end
+  
+  # Returns what move to make for the computer based on the analysis
+  def think
+  end
 end

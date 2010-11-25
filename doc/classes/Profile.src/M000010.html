@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>global_record (Profile)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/models/profile.rb, line 70</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">global_record</span>
+      <span class="ruby-identifier">values</span> = {<span class="ruby-identifier">:wins</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>, <span class="ruby-identifier">:draws</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>, <span class="ruby-identifier">:losses</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>}
+      <span class="ruby-ivar">@db</span>.<span class="ruby-identifier">execute</span>(<span class="ruby-value str">&quot;SELECT wins, draws, losses FROM turns 
+        GROUP BY game_id&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">row</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">values</span>[<span class="ruby-identifier">:wins</span>] <span class="ruby-operator">+=</span> <span class="ruby-identifier">row</span>[<span class="ruby-value str">'wins'</span>]
+        <span class="ruby-identifier">values</span>[<span class="ruby-identifier">:draws</span>] <span class="ruby-operator">+=</span> <span class="ruby-identifier">row</span>[<span class="ruby-value str">'draws'</span>]
+        <span class="ruby-identifier">values</span>[<span class="ruby-identifier">:losses</span>] <span class="ruby-operator">+=</span> <span class="ruby-identifier">row</span>[<span class="ruby-value str">'losses'</span>]
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">values</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>
