@@ -9,7 +9,16 @@ class Profile
     # for a game. The profile also mantains a connection to the database.
     def initialize(name)
       @db = SQLite3::Database.new('db/data.sqlite3')
+      @db.type_translation = true
+      @db.results_as_hash = true
       @name = name.downcase
+      user = @db.get_first_row("SELECT id FROM users WHERE name=?", [@name])
+      if user == nil
+        @db.execute("INSERT INTO users VALUES(null,?)", [@name])
+        @user_id = @db.last_insert_row_id
+      else
+        @user_id = user['id']
+      end
       new_game
     end
     attr_reader :name, :wins, :losses, :draws, :user_id

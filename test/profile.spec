@@ -3,6 +3,8 @@ require 'app/models/profile'
 describe Profile do
   before(:all) do
     @db = SQLite3::Database.new("db/data.sqlite3")
+    @db.results_as_hash = true
+    @db.type_translation = true
   end
   
   before do
@@ -31,5 +33,6 @@ describe Profile do
   it "should have enter the name in the database" do
     user = @db.get_first_row("SELECT id FROM users WHERE name='user'")
     user.should_not eql(nil)
+    user['id'].should eql(@profile.user_id)
   end
 end
