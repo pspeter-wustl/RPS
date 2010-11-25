@@ -47,10 +47,23 @@ class Thinker
     @computer << computer
   end
   
+  # Returns the argument array for Profile to use in storing games in the
+  # database and convert the booleans to 0 and 1
+  def args
+    [@max_search, @max_history, bool(@analyze_user), bool(@analyze_computer)]
+  end
+  
   # Returns what move to make for the computer based on the analysis. The
   # method creates a Mind object to hold an exponential smoothed vector in RPS
   # space. It goes through the history and checks whether or not to add to the
   def think
     mind = Mind.new
-  end  
+  end
+  
+  private
+  # Converts a boolean to 0 or 1 for the database
+  def bool(value)
+    return 1 if value
+    0
+  end
 end

@@ -7,7 +7,8 @@ namespace :db do
     db.execute('CREATE TABLE users(id integer primary key autoincrement, 
       name text)')
     db.execute('CREATE TABLE games(id integer primary key autoincrement,
-      user_id integer, timestamp integer)')
+      search integer, history integer, analyze_user integer, 
+      analyze_computer integer, user_id integer, timestamp integer)')
     db.execute('CREATE TABLE turns(id integer primary key autoincrement,
       wins integer, draws integer, losses integer, game_id integer)')
   end

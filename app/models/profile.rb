@@ -6,7 +6,7 @@ require 'sqlite3'
 class Profile
     # Constructor, takes the name of a user and instantiates the values
     # for a game. The profile also mantains a connection to the database.
-    def initialize(name)
+    def initialize(name,args)
       @db = SQLite3::Database.new('db/data.sqlite3')
       @db.type_translation = true
       @db.results_as_hash = true
@@ -18,6 +18,7 @@ class Profile
       else
         @user_id = user['id']
       end
+      @args = args << @user_id
       new_game
       @insert_turn = @db.prepare("INSERT INTO turns VALUES(null,?,?,?,?)")
     end
@@ -29,8 +30,8 @@ class Profile
       @wins = 0
       @losses = 0
       @draws = 0
-      @db.execute("INSERT INTO games VALUES(null,?,?)", [@user_id, 
-        Time.now.to_i])
+      @db.execute("INSERT INTO games VALUES(null,?,?,?,?,?,?)", @args + 
+        [Time.now.to_i])
       @game_id = @db.last_insert_row_id
     end
     

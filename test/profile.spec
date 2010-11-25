@@ -8,7 +8,7 @@ describe Profile do
   end
   
   before do
-    @profile = Profile.new("User")
+    @profile = Profile.new("User", [5,50,1,1])
   end
   
   it "should have a name" do
