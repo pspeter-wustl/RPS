@@ -1,11 +1,13 @@
 #!/usr/bin/ruby
-
+require 'app/models/profile'
+require 'app/controllers/thinker'
 # The Engine class handles the input and ties the Profile and Thinker classes
 # together
 class Engine
   # The constructor takes in the arguments passed to it by the main program
   # and passes it to the Thinker
   def initialize(name, args)
+    @args = args
     @thinker = Thinker.new(args)
     @profile = Profile.new(name, @thinker.args)
   end
@@ -31,6 +33,41 @@ class Engine
     handle_move(2)
   end
   
+  # Handles the reset
+  def reset
+    @profile.new_game
+    @thinker = Thinker.new(@args)
+  end
+  
+  # Handles game results
+  def game
+    "Game Results: " + results_to_s(@profile.game_record)
+  end
+  
+  # Handles the user results
+  def user
+    "User Results: " + results_to_s(@profile.user_record)
+  end
+  
+  # Handles the global results
+  def global
+    "Global Results: " + results_to_s(@profile.global_record)
+  end
+  
+  # Returns the help string
+  def help
+    help = <<HEREDOC 
+reset - creates a new game
+rock - throws rock
+paper - throws paper
+scissors - throws scissors
+help - shows this screen
+game - shows the results from this game
+user - shows your results from all your games
+global - shows the global results from all users
+HEREDOC
+  end
+  
   private
   # Handles a move by recording it in the thinker and the profile as well as
   # returning the appropriate output.
@@ -53,4 +90,16 @@ class Engine
     end
     temp
   end
+  
+  # Returns the results of a hash
+  def results_to_s(results)
+    temp = [:wins, :draws, :losses].map do |k|
+      k = k.to_s.capitalize + ": " + results[k].to_s
+    end
+    temp = temp.join(" ")
+    if results[:wins] + results[:losses] > 0 
+      temp += " Ratio: #{results[:wins]/(results[:wins] + results[:losses])}"
+    end
+    temp
+  end 
 end

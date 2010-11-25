@@ -53,6 +53,11 @@ class Profile
       insert_record
     end
     
+    # Returns the game records as a hash
+    def game_record
+      {:wins => @wins, :draws => @draws, :losses => @losses}
+    end
+    
     # Returns the user results of the user as a hash
     def user_record
       values = {:wins => 0, :draws => 0, :losses => 0}

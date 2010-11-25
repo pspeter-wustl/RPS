@@ -2,6 +2,7 @@ require 'app/models/profile'
 
 describe Profile do
   before(:all) do
+    `rake db:reset`
     @db = SQLite3::Database.new("db/data.sqlite3")
     @db.results_as_hash = true
     @db.type_translation = true
