@@ -27,6 +27,6 @@ describe Thinker do
   it "should return what to play" do
     @thinker.add 0, 1
     @thinker.add 1, 2
-    [0,1,2].should have(@thinker.think)
+    ([0,1,2].include? @thinker.think).should be true
   end
 end

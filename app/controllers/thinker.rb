@@ -22,5 +22,5 @@ class Thinker
   
   # Returns what move to make for the computer based on the analysis
   def think
-  end
+  end   
 end
