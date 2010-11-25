@@ -9,4 +9,9 @@ class Engine
     @thinker = Thinker.new(args)
     @profile = Profile.new(name, @thinker.args)
   end
+  
+  # Handles the input for the class and returns 
+  def handle_input(input)
+    return "Invalid input" unless self.respond_to? input
+  end
 end
