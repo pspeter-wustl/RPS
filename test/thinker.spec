@@ -2,7 +2,7 @@ require 'app/controllers/thinker'
 
 describe Thinker do
   before(:each) do
-    @thinker = Thinker.new(5, 50)
+    @thinker = Thinker.new({})
   end
   
   it "should have a max search" do
