@@ -1,9 +1,8 @@
 #!/usr/bin/ruby
-# The profile class is used to track information for a profile including their
-# name and win/loss statistics.
-
 require 'sqlite3'
 
+# The Profile class is used to track information for a profile including their
+# name and win/loss statistics.
 class Profile
     # Constructor, takes the name of a user and instantiates the values
     # for a game. The profile also mantains a connection to the database.
