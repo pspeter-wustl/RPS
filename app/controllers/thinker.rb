@@ -126,7 +126,8 @@ class Thinker
         end
       end
     end
-    weights = mind.max_weights
+    # Convert the weights to win
+    weights = mind.max_weights.map {|i| i = (i+1) % 3}
     weights[rand(weights.size)]
   end
   

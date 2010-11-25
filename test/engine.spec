@@ -37,7 +37,7 @@ describe Engine do
     @engine.handle_input(:user).should_not eql("Invalid input")
   end
   
-  it "should handle new" do
+  it "should handle reset" do
     @engine.handle_input(:reset).should_not eql("Invalid input")
   end
 end
