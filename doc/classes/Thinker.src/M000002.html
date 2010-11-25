@@ -10,10 +10,15 @@
   <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
 </head>
 <body class="standalone-code">
-  <pre><span class="ruby-comment cmt"># File app/controllers/thinker.rb, line 18</span>
+  <pre><span class="ruby-comment cmt"># File app/controllers/thinker.rb, line 45</span>
   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">computer</span>)
     <span class="ruby-ivar">@user</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">user</span>
     <span class="ruby-ivar">@computer</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">computer</span>
+    <span class="ruby-comment cmt"># Make sure to only store the max history</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@max_history</span>
+      <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">shift</span>
+      <span class="ruby-ivar">@computer</span>.<span class="ruby-identifier">shift</span>
+    <span class="ruby-keyword kw">end</span>
   <span class="ruby-keyword kw">end</span></pre>
 </body>
 </html>

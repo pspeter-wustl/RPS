@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Mind</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Mind</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/app/models/mind_rb.html">
+                app/models/mind.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+The <a href="Mind.html">Mind</a> class stores a vector in the three
+dimensional <a href="Mind.html#M000024">rock</a>, <a
+href="Mind.html#M000025">paper</a>, <a
+href="Mind.html#M000026">scissors</a> space. The mind class can also return
+what value the computer should play
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000027">add</a>&nbsp;&nbsp;
+      <a href="#M000028">max_weights</a>&nbsp;&nbsp;
+      <a href="#M000023">new</a>&nbsp;&nbsp;
+      <a href="#M000025">paper</a>&nbsp;&nbsp;
+      <a href="#M000024">rock</a>&nbsp;&nbsp;
+      <a href="#M000026">scissors</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000023" class="method-detail">
+        <a name="M000023"></a>
+
+        <div class="method-heading">
+          <a href="Mind.src/M000023.html" target="Code" class="method-signature"
+            onclick="popupCode('Mind.src/M000023.html');return false;">
+          <span class="method-name">new</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Constructor, holds values for the <a href="Mind.html#M000024">rock</a>, <a
+href="Mind.html#M000025">paper</a> and scissor weights as an internal array
+in [r,p,s] order
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000027" class="method-detail">
+        <a name="M000027"></a>
+
+        <div class="method-heading">
+          <a href="Mind.src/M000027.html" target="Code" class="method-signature"
+            onclick="popupCode('Mind.src/M000027.html');return false;">
+          <span class="method-name">add</span><span class="method-args">(count, pattern_length, history_length, move)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Updates the mind use weighted exponential smoothing. The weight is based on
+the (number of times the pattern was seen)/(length of history / length of
+the pattern). This can be simplified to (pattern.count * pattern.size) /
+history.size
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000028" class="method-detail">
+        <a name="M000028"></a>
+
+        <div class="method-heading">
+          <a href="Mind.src/M000028.html" target="Code" class="method-signature"
+            onclick="popupCode('Mind.src/M000028.html');return false;">
+          <span class="method-name">max_weights</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the max weights
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000025" class="method-detail">
+        <a name="M000025"></a>
+
+        <div class="method-heading">
+          <a href="Mind.src/M000025.html" target="Code" class="method-signature"
+            onclick="popupCode('Mind.src/M000025.html');return false;">
+          <span class="method-name">paper</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Gets the weight for <a href="Mind.html#M000025">paper</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000024" class="method-detail">
+        <a name="M000024"></a>
+
+        <div class="method-heading">
+          <a href="Mind.src/M000024.html" target="Code" class="method-signature"
+            onclick="popupCode('Mind.src/M000024.html');return false;">
+          <span class="method-name">rock</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Gets the weight for <a href="Mind.html#M000024">rock</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000026" class="method-detail">
+        <a name="M000026"></a>
+
+        <div class="method-heading">
+          <a href="Mind.src/M000026.html" target="Code" class="method-signature"
+            onclick="popupCode('Mind.src/M000026.html');return false;">
+          <span class="method-name">scissors</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Gets the weight for <a href="Mind.html#M000026">scissors</a>
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

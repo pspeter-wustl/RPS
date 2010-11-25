@@ -65,6 +65,7 @@ class Thinker
   def think
     # Return if there just isn't enough history
     return rand(3) if @user.size < 2
+    puts "Thinking"
     # Set up the hashes
     user = {} if @analyze_user
     comp = {} if @analyze_computer
@@ -72,18 +73,27 @@ class Thinker
     upattern, cpattern = patterns
     max = @user.size-1
     # Loop to the last value
+    puts "User:"
+    puts upattern.join("|")
+    puts @user.join("|")
+    puts "Computer:"
+    puts cpattern.join("|")
+    puts @computer.join("|")
     (0...max).each do |i|
+      puts i
       # K is how much to loop through the history
       k = 0
       if (i > upattern.size && i < (max - upattern.size + 1))
         k = upattern.size
       else
-        k = [i, (max - upattern.size + 1)].min
+        k = [i + 1, (max - upattern.size + 1)].min
       end
+      puts k
       # j is the loop value, u is the user boolean, c is the computer boolean 
       j, u, c = 1, @analyze_user, @analyze_computer
       # Loop
       while (j <= k and (u or c))
+        puts j
         # Check the user
         if (u)
           if upattern[-1 * j] == @user[i + k - j]

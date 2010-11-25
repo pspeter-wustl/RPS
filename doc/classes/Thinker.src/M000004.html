@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>think (Thinker)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/controllers/thinker.rb, line 65</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">think</span>
+    <span class="ruby-comment cmt"># Return if there just isn't enough history</span>
+    <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">rand</span>(<span class="ruby-value">3</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">2</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;Thinking&quot;</span>
+    <span class="ruby-comment cmt"># Set up the hashes</span>
+    <span class="ruby-identifier">user</span> = {} <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@analyze_user</span>
+    <span class="ruby-identifier">comp</span> = {} <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@analyze_computer</span>
+    <span class="ruby-comment cmt"># Set up the patterns</span>
+    <span class="ruby-identifier">upattern</span>, <span class="ruby-identifier">cpattern</span> = <span class="ruby-identifier">patterns</span>
+    <span class="ruby-identifier">max</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>
+    <span class="ruby-comment cmt"># Loop to the last value</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;User:&quot;</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-identifier">upattern</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;|&quot;</span>)
+    <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;|&quot;</span>)
+    <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;Computer:&quot;</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-identifier">cpattern</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;|&quot;</span>)
+    <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@computer</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;|&quot;</span>)
+    (<span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-identifier">max</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-identifier">i</span>
+      <span class="ruby-comment cmt"># K is how much to loop through the history</span>
+      <span class="ruby-identifier">k</span> = <span class="ruby-value">0</span>
+      <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">i</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">upattern</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&lt;</span> (<span class="ruby-identifier">max</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">upattern</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>))
+        <span class="ruby-identifier">k</span> = <span class="ruby-identifier">upattern</span>.<span class="ruby-identifier">size</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">k</span> = [<span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>, (<span class="ruby-identifier">max</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">upattern</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)].<span class="ruby-identifier">min</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-identifier">k</span>
+      <span class="ruby-comment cmt"># j is the loop value, u is the user boolean, c is the computer boolean </span>
+      <span class="ruby-identifier">j</span>, <span class="ruby-identifier">u</span>, <span class="ruby-identifier">c</span> = <span class="ruby-value">1</span>, <span class="ruby-ivar">@analyze_user</span>, <span class="ruby-ivar">@analyze_computer</span>
+      <span class="ruby-comment cmt"># Loop</span>
+      <span class="ruby-keyword kw">while</span> (<span class="ruby-identifier">j</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">k</span> <span class="ruby-keyword kw">and</span> (<span class="ruby-identifier">u</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">c</span>))
+        <span class="ruby-identifier">puts</span> <span class="ruby-identifier">j</span>
+        <span class="ruby-comment cmt"># Check the user</span>
+        <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">u</span>)
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">upattern</span>[<span class="ruby-value">-1</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">j</span>] <span class="ruby-operator">==</span> <span class="ruby-ivar">@user</span>[<span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">j</span>]
+            <span class="ruby-identifier">user</span>[<span class="ruby-identifier">j</span>] = [] <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-identifier">j</span>
+            <span class="ruby-identifier">user</span>[<span class="ruby-identifier">j</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@user</span>[<span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">j</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>]
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">u</span> = <span class="ruby-keyword kw">false</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-comment cmt"># Check the computer</span>
+        <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">c</span>)
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cpattern</span>[<span class="ruby-value">-1</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">j</span>] <span class="ruby-operator">==</span> <span class="ruby-ivar">@computer</span>[<span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">j</span>]
+            <span class="ruby-identifier">comp</span>[<span class="ruby-identifier">j</span>] = [] <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">comp</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-identifier">j</span>
+            <span class="ruby-identifier">comp</span>[<span class="ruby-identifier">j</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@computer</span>[<span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">j</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>]
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">c</span> = <span class="ruby-keyword kw">false</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-comment cmt"># Iterate</span>
+        <span class="ruby-identifier">j</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># Set up the mind</span>
+    <span class="ruby-identifier">mind</span> = <span class="ruby-constant">Mind</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-comment cmt"># Merge everything into the mind</span>
+    <span class="ruby-identifier">keys</span> = []
+    <span class="ruby-identifier">keys</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">keys</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@analyze_user</span>
+    <span class="ruby-identifier">keys</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">comp</span>.<span class="ruby-identifier">keys</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@analyze_computer</span>
+    <span class="ruby-identifier">keys</span>.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@analyze_user</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-identifier">key</span>
+        <span class="ruby-identifier">count</span> = <span class="ruby-identifier">user</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">size</span>
+        <span class="ruby-identifier">user</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">mind</span>.<span class="ruby-identifier">add</span> <span class="ruby-identifier">count</span>, <span class="ruby-identifier">key</span>, <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">size</span>, <span class="ruby-identifier">i</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@analyze_computer</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">comp</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-identifier">key</span>
+        <span class="ruby-identifier">count</span> = <span class="ruby-identifier">comp</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">size</span>
+        <span class="ruby-identifier">comp</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">mind</span>.<span class="ruby-identifier">add</span> <span class="ruby-identifier">count</span>, <span class="ruby-identifier">key</span>, <span class="ruby-ivar">@computer</span>.<span class="ruby-identifier">size</span>, <span class="ruby-identifier">i</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># Convert the weights to win</span>
+    <span class="ruby-identifier">weights</span> = <span class="ruby-identifier">mind</span>.<span class="ruby-identifier">max_weights</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">i</span> = (<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>) <span class="ruby-operator">%</span> <span class="ruby-value">3</span>}
+    <span class="ruby-identifier">weights</span>[<span class="ruby-identifier">rand</span>(<span class="ruby-identifier">weights</span>.<span class="ruby-identifier">size</span>)]
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

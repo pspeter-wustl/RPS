@@ -10,12 +10,34 @@
   <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
 </head>
 <body class="standalone-code">
-  <pre><span class="ruby-comment cmt"># File app/controllers/thinker.rb, line 8</span>
-  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">max_search</span>, <span class="ruby-identifier">max_history</span>)
+  <pre><span class="ruby-comment cmt"># File app/controllers/thinker.rb, line 13</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">args</span>)
     <span class="ruby-ivar">@user</span> = []
     <span class="ruby-ivar">@computer</span> = []
-    <span class="ruby-ivar">@max_search</span> = <span class="ruby-identifier">max_search</span>
-    <span class="ruby-ivar">@max_history</span> = <span class="ruby-identifier">max_history</span>
+    <span class="ruby-comment cmt"># :max_search check</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-identifier">:max_search</span>
+      <span class="ruby-ivar">@max_search</span> = <span class="ruby-identifier">args</span>[<span class="ruby-identifier">:max_search</span>]
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-ivar">@max_search</span> = <span class="ruby-value">5</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># :max_history check</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-identifier">:max_history</span>
+      <span class="ruby-ivar">@max_history</span> = <span class="ruby-identifier">args</span>[<span class="ruby-identifier">:max_history</span>]
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-ivar">@max_history</span> = <span class="ruby-value">50</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># :analyze_user check</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-identifier">:analyze_user</span>
+      <span class="ruby-ivar">@analyze_user</span> = <span class="ruby-identifier">args</span>[<span class="ruby-identifier">:analyze_user</span>]
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-ivar">@analyze_user</span> = <span class="ruby-keyword kw">true</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># :analyze_computer check</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-identifier">:analyze_computer</span>
+      <span class="ruby-ivar">@analyze_computer</span> = <span class="ruby-identifier">args</span>[<span class="ruby-identifier">:analyze_computer</span>]
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-ivar">@analyze_computer</span> = <span class="ruby-keyword kw">true</span>
+    <span class="ruby-keyword kw">end</span>
   <span class="ruby-keyword kw">end</span></pre>
 </body>
 </html>

@@ -96,9 +96,9 @@ HEREDOC
     temp = [:wins, :draws, :losses].map do |k|
       k = k.to_s.capitalize + ": " + results[k].to_s
     end
-    temp = temp.join(" ")
+    temp = temp.join(", ")
     if results[:wins] + results[:losses] > 0 
-      temp += " Ratio: #{results[:wins]/(results[:wins] + results[:losses])}"
+      temp += " Ratio: #{results[:wins].to_f/(results[:wins] + results[:losses])}"
     end
     temp
   end 
