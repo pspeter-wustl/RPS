@@ -56,8 +56,20 @@ class Thinker
   # Returns what move to make for the computer based on the analysis. The
   # method creates a Mind object to hold an exponential smoothed vector in RPS
   # space. It goes through the history and checks whether or not to add to the
+  # mind. If the length of history is less than 2 it returns a random value.
   def think
+    # Return if there just isn't enough history
+    return rand(3) if @user.size < 2
+    # Set up the mind
     mind = Mind.new
+    # Set up the hashes
+    user = {} if @analyze_user
+    comp = {} if @analyze_computer
+    # Set up the patterns
+    upattern, cpattern = patterns
+    # Loop to the last value
+    (0...(@user.size-1)).each do |i|
+    end
   end
   
   private
@@ -65,5 +77,9 @@ class Thinker
   def bool(value)
     return 1 if value
     0
+  end
+  
+  # Creates the patterns for user and computer
+  def patterns
   end
 end
