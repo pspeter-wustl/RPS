@@ -52,6 +52,32 @@ class Profile
       insert_record
     end
     
+    # Returns the user results of the user as a hash
+    def user_record
+      values = {:wins => 0, :draws => 0, :losses => 0}
+      @db.execute("SELECT turns.wins, turns.draws, turns.losses FROM 
+        users, games, turns WHERE users.id = games.user_id AND 
+        games.id = turns.game_id AND users.id = ? GROUP BY turns.game_id", 
+        [@user_id]).each do |row|
+        values[:wins] += row[0]
+        values[:draws] += row[1]
+        values[:losses] += row[2]
+      end
+      values
+    end
+    
+    # Returns the global results of the users as a hash
+    def global_record
+      values = {:wins => 0, :draws => 0, :losses => 0}
+      @db.execute("SELECT wins, draws, losses FROM turns 
+        GROUP BY game_id").each do |row|
+        values[:wins] += row['wins']
+        values[:draws] += row['draws']
+        values[:losses] += row['losses']
+      end
+      values
+    end
+    
     private
     # Insert a record into the database
     def insert_record

@@ -2,6 +2,8 @@ require 'app/models/profile'
 
 describe Profile do
   before(:all) do
+    puts "Database needs to be reset for all the tests to pass"
+    puts "Run rake db:reset to reset the database"
     @db = SQLite3::Database.new("db/data.sqlite3")
     @db.results_as_hash = true
     @db.type_translation = true
@@ -52,6 +54,16 @@ describe Profile do
     @db.results_as_hash = false
     turns = @db.execute("SELECT wins, losses, draws FROM turns WHERE game_id=?", 
       [@profile.game_id])
-    (expect == turns).should eql(true)
+    expect.should eql(turns)
+  end
+  
+  it "should have a user record" do
+    expect = {:wins => 3, :draws => 2, :losses => 2}
+    expect.should eql(@profile.user_record)
+  end
+  
+  it "should have a global record" do
+    expect = {:wins => 3, :draws => 2, :losses => 2}
+    expect.should eql(@profile.global_record)
   end
 end
