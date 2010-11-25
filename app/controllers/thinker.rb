@@ -45,6 +45,11 @@ class Thinker
   def add(user, computer)
     @user << user
     @computer << computer
+    # Make sure to only store the max history
+    if @user.size > @max_history
+      @user.shift
+      @computer.shift
+    end
   end
   
   # Returns the argument array for Profile to use in storing games in the
@@ -60,16 +65,69 @@ class Thinker
   def think
     # Return if there just isn't enough history
     return rand(3) if @user.size < 2
-    # Set up the mind
-    mind = Mind.new
     # Set up the hashes
     user = {} if @analyze_user
     comp = {} if @analyze_computer
     # Set up the patterns
     upattern, cpattern = patterns
+    max = @user.size-1
     # Loop to the last value
-    (0...(@user.size-1)).each do |i|
+    (0...max).each do |i|
+      # K is how much to loop through the history
+      k = 0
+      if (i > upattern.size && i < (max - upattern.size + 1))
+        k = upattern.size
+      else
+        k = [i, (max - upattern.size + 1)].min
+      end
+      # j is the loop value, u is the user boolean, c is the computer boolean 
+      j, u, c = 1, @analyze_user, @analyze_computer
+      # Loop
+      while (j <= k and (u or c))
+        # Check the user
+        if (u)
+          if upattern[-1 * j] == @user[i + k - j]
+            user[j] = [] unless user.has_key? j
+            user[j] << @user[i + k - j + 1]
+          else
+            u = false
+          end
+        end
+        # Check the computer
+        if (c)
+          if cpattern[-1 * j] == @computer[i + k - j]
+            comp[j] = [] unless comp.has_key? j
+            comp[j] << @computer[i + k - j + 1]
+          else
+            c = false
+          end
+        end
+        # Iterate
+        j += 1
+      end
     end
+    # Set up the mind
+    mind = Mind.new
+    # Merge everything into the mind
+    keys = []
+    keys += user.keys if @analyze_user
+    keys += comp.keys if @analyze_computer
+    keys.uniq.each do |key|
+      if @analyze_user and user.has_key? key
+        count = user[key].size
+        user[key].each do |i|
+          mind.add count, key, @user.size, i
+        end
+      end
+      if @analyze_computer and comp.has_key? key
+        count = comp[key].size
+        comp[key].each do |i|
+          mind.add count, key, @computer.size, i
+        end
+      end
+    end
+    weights = mind.max_weights
+    weights[rand(weights.size)]
   end
   
   private
@@ -81,5 +139,10 @@ class Thinker
   
   # Creates the patterns for user and computer
   def patterns
+    if @max_search > @user.size
+      [@user, @computer]
+    else
+      [@user[-1 * @max_search..-1], @computer[-1* @max_search..-1]]
+    end
   end
 end

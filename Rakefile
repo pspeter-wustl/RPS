@@ -27,4 +27,5 @@ desc "Run all the tests"
 task :test do
   Rake::Task['db:reset'].invoke
   puts `rspec test/*.spec`
+  Rake::Task['db:reset'].invoke
 end
