@@ -31,7 +31,6 @@ class Mind
   def add(count, pattern_length, history_length, move)
     # Set the initial thought and then update the move
     thought = [0,0,0]
-    puts move
     thought[move] = 1
     # Calculate the weight
     weight = (count * pattern_length) / history_length.to_f

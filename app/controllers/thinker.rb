@@ -65,7 +65,6 @@ class Thinker
   def think
     # Return if there just isn't enough history
     return rand(3) if @user.size < 2
-    puts "Thinking"
     # Set up the hashes
     user = {} if @analyze_user
     comp = {} if @analyze_computer
@@ -77,9 +76,9 @@ class Thinker
       # Choose the minimum k value to check
       k = 0
       if @analyze_user
-        k = [i + 1, upattern.size]
+        k = [i + 1, upattern.size].min
       else
-        k = [i + 1, cpattern.size]
+        k = [i + 1, cpattern.size].min
       end
       j, u, c = 1, @analyze_user, @analyze_computer
       while (j <= k and (u or c))

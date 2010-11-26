@@ -25,7 +25,9 @@ describe Thinker do
   end
   
   it "should return what to play" do
-    (0..50).each {|i| @thinker.add(rand(3), rand(3))}
-    ([0,1,2].include? @thinker.think).should be true
+    (0..50).each do |i| 
+      @thinker.add(rand(3), rand(3))
+      ([0,1,2].include? @thinker.think).should be true
+    end
   end
 end
