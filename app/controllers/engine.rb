@@ -74,6 +74,19 @@ HEREDOC
     "Goodbye! Thanks for playing!"
   end
   
+  # Runs the engine and handles everything
+  def run!
+    puts "Type 'help' to view commands"
+    run = true
+    while run
+      print ">> "
+      input = gets.split[0].to_sym
+      output = engine.handle_input input
+      puts output
+      run = false if output == "Goodbye! Thanks for playing!"
+    end
+  end
+  
   private
   # Handles a move by recording it in the thinker and the profile as well as
   # returning the appropriate output.
@@ -105,7 +118,7 @@ HEREDOC
     temp = temp.join(", ")
     if results[:wins] + results[:losses] > 0 
       ratio = (results[:wins].to_f / (results[:wins] + results[:losses])) * 100
-      temp += " Ratio: #{ratio.to_i}%"
+      temp += ", Ratio: #{ratio.to_i}%"
     end
     temp
   end 

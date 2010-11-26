@@ -43,4 +43,5 @@ describe Engine do
   
   it "should hanlde exit" do
     @engine.handle_input(:exit).should eql("Goodbye! Thanks for playing!")
+  end
 end
