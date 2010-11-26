@@ -73,46 +73,39 @@ class Thinker
     upattern, cpattern = patterns
     max = @user.size-1
     # Loop to the last value
-    puts "User:"
-    puts upattern.join("|")
-    puts @user.join("|")
-    puts "Computer:"
-    puts cpattern.join("|")
-    puts @computer.join("|")
     (0...max).each do |i|
-      puts i
-      # K is how much to loop through the history
+      # Choose the minimum k value to check
       k = 0
-      if (i > upattern.size && i < (max - upattern.size + 1))
-        k = upattern.size
+      if @analyze_user
+        k = [i + 1, upattern.size]
       else
-        k = [i + 1, (max - upattern.size + 1)].min
+        k = [i + 1, cpattern.size]
       end
-      puts k
-      # j is the loop value, u is the user boolean, c is the computer boolean 
       j, u, c = 1, @analyze_user, @analyze_computer
-      # Loop
       while (j <= k and (u or c))
-        puts j
         # Check the user
-        if (u)
-          if upattern[-1 * j] == @user[i + k - j]
-            user[j] = [] unless user.has_key? j
-            user[j] << @user[i + k - j + 1]
+        if u
+          # Insert into the hash
+          user[j] = [] unless user.has_key? j
+          # Either insert or end user
+          if @user[i - j + 1] == upattern[-1 * j]
+            user[j] << @user[i + 1]
           else
             u = false
           end
         end
         # Check the computer
-        if (c)
-          if cpattern[-1 * j] == @computer[i + k - j]
-            comp[j] = [] unless comp.has_key? j
-            comp[j] << @computer[i + k - j + 1]
+        if c
+          # Insert into the hash
+          comp[j] = [] unless comp.has_key? j
+          # Either insert or end user
+          if @computer[i - j + 1] == cpattern[-1 * j]
+            comp[j] << @computer[i + 1]
           else
             c = false
           end
         end
-        # Iterate
+        # Increment j
         j += 1
       end
     end
@@ -151,7 +144,7 @@ class Thinker
   # Creates the patterns for user and computer
   def patterns
     if @max_search > @user.size
-      [@user, @computer]
+      [@user[0...@user.size-1], @computer[0...@computer.size-1]]
     else
       [@user[-1 * @max_search..-1], @computer[-1* @max_search..-1]]
     end
