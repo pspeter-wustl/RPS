@@ -40,4 +40,7 @@ describe Engine do
   it "should handle reset" do
     @engine.handle_input(:reset).should_not eql("Invalid input")
   end
+  
+  it "should hanlde exit" do
+    @engine.handle_input(:exit).should eql("Goodbye! Thanks for playing!")
 end

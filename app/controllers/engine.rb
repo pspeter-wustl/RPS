@@ -65,7 +65,13 @@ help - shows this screen
 game - shows the results from this game
 user - shows your results from all your games
 global - shows the global results from all users
+exit - quit the game
 HEREDOC
+  end
+  
+  # Returns the goodbye notice
+  def exit
+    "Goodbye! Thanks for playing!"
   end
   
   private
@@ -98,7 +104,8 @@ HEREDOC
     end
     temp = temp.join(", ")
     if results[:wins] + results[:losses] > 0 
-      temp += " Ratio: #{results[:wins].to_f/(results[:wins] + results[:losses])}"
+      ratio = (results[:wins].to_f / (results[:wins] + results[:losses])) * 100
+      temp += " Ratio: #{ratio.to_i}%"
     end
     temp
   end 
