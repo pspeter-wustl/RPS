@@ -4,7 +4,7 @@ The Rock Paper Scissors app plays Rock Paper Scissors against users. Each user c
 
 == Options
 
-Inside the +rps.rb+ file, the Engine class is constructed with a hash that determines some of the configuration values. These values can be changed in order to test different configurations.
+Inside the *rps.rb* file, the Engine class is constructed with a hash that determines some of the configuration values. These values can be changed in order to test different configurations.
 
   max_search:: The length of recent user history to use to search for patterns
   max_history:: The total length of history to store
