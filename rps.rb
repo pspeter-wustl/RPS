@@ -10,6 +10,10 @@
 #
 # == Options
 #   -h, --help          Displays help message
+#   -c, --computer      Disables analyzing the computer
+#   -u, --user          Disables analyzing the user 
+#   -s, --search        Search pattern length, default is 5
+#   -p, --past          How far to look back into the past, default is 50
 #
 # == Author
 #   Phips Peter

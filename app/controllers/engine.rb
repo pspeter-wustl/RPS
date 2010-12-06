@@ -81,7 +81,7 @@ HEREDOC
     while run
       print ">> "
       input = gets.split[0].to_sym
-      output = engine.handle_input input
+      output = handle_input input
       puts output
       run = false if output == "Goodbye! Thanks for playing!"
     end
