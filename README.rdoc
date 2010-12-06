@@ -10,3 +10,30 @@ Inside the rps.rb file, the Engine class is constructed with a hash that determi
 [max_history] The total length of history to store
 [analyze_user] Whether or not to analyze the user's history
 [analyze_computer] Whether or not to analyze the computer's history
+
+== Database Schema
+
+The database has a schema which can be used to query user results
+
+=== User
+
+[id] An autoincrementing integer that stores the user's id
+[name] The text value that stores the user's name
+
+=== Game
+
+[id] An autoincrementing integer that stores the game's id
+[search] The value for max_search for that game
+[history] The value for max_history for that game
+[analyze_user] The bit value for whether or not to analyze the user
+[analyze_computer] The bit value for whether or not to analyze the computer
+[user_id] The id of the user
+[timestamp] The ruby timestamp of the game
+
+=== Turns
+
+[id] An autoincrementing integer that stores the turn's id
+[wins] The integer number of wins
+[draws] The integer number of draws
+[losses] The integer number of losses
+[game_id] The id of the game
